@@ -1,0 +1,27 @@
+---
+#pod create with ns
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: jr-ns
+  name: jr:pod
+  labels:
+    name: jr:app
+spec:
+  containers:
+  - name: jr:cont
+    image: nginx
+    ports:
+    - containerPort: 80
+
+...
+---
+#namespce create for pod 
+
+apiVersion: v1
+kind: namespace
+metadata: 
+  labels: jr-nss
+  name: jr-ns
+
+...
