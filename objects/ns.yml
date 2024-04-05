@@ -1,27 +1,47 @@
+#namespce 
 ---
-#pod create with ns
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: jr-test
+  labels:
+    name: jr-ns
+
+...
+#pod with ns
+---
+
 apiVersion: v1
 kind: Pod
 metadata:
-  namespace: jr-ns
-  name: jr:pod
+  namespace: jr-test
+  name: jr-pod
   labels:
-    name: jr:app
+    name: jr-app
 spec:
   containers:
-  - name: jr:cont
+  - name: jr-cont
     image: nginx
     ports:
     - containerPort: 80
 
 ...
----
-#namespce create for pod 
 
+#services with selector
+
+---
 apiVersion: v1
-kind: namespace
-metadata: 
-  labels: jr-nss
-  name: jr-ns
+kind: Service
+metadata:
+  name: jr-test
+spec:
+  type: NodePort
+  selector:
+    app: jr-app
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30000  # Specify the nodePort value here
+    protocol: TCP
 
 ...
